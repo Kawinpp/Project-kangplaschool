@@ -148,7 +148,11 @@ if (!$_SESSION["a_id"]) {
         }
                ?>
                                         </div>
-                                       
+                                        <div class="field item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align">รูปภาพ<span class="required">*</span></label>
+                                        <div class="right">
+                                        <img src="pic/<?php echo $objResult3['a_upload']; ?>" width="90px" height="100px" class="image-fluid rounded"> </div> 
+                                       </div>    
                                        
                                         </div>
                                     </form>

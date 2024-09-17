@@ -6,8 +6,9 @@ if (isset($_POST['username'])) {
   //รับค่าเข้ามาจากฟอร์ม login
   $username = $_POST['username'];
   $password = md5($_POST['password']); // ถอดรหัส MD5
+  $a_level = $_POST['a_level'];
 
-  $sql = "SELECT * FROM admin where a_username='" . $username . "' AND a_password='" . $password . "'";
+  $sql = "SELECT * FROM admin where a_username='" . $username . "' AND a_password='" . $password . "' AND a_level='".$a_level."' ";
   $result = mysqli_query($con, $sql);
 //echo"$sql";
 //exit();
@@ -20,7 +21,7 @@ if (isset($_POST['username'])) {
       header("location:show_class.php");
     }
     if ($_SESSION["a_level"] == "t") {
-      header("location:teacher_page.php");
+      header("location:show_teacher_t.php");
     }
   } else {
     echo "<script>";

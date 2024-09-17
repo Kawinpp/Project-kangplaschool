@@ -1,7 +1,7 @@
 <?php
 session_start();
 require("dbconnect.php");
-if ($_SESSION['a_level'] != "a") {
+if ($_SESSION['a_level'] == "") {
   echo "<center>หน้าสำหรับผู้ดูแลระบบ <a href=index.php>กรุณาเข้าสู่ระบบก่อน</a></center>";
   exit();
 }
@@ -112,7 +112,7 @@ $order = 1; //ให้เริ่มนับแถวจากเลข 1
                       <?php while ($rowclass = mysqli_fetch_assoc($result)) {
         ?>
                         <tr>
-                          <td><?php echo $order++; ?></td>
+                          <td><?php echo $order++; ?></td>                          
                           <td><?php echo $rowclass["c_name"];?></td>
                           <td><a href="edit_class.php?c_id=<?php echo $rowclass["c_id"] ?>" class="btn btn-success"><i class="fa fa-edit"></i></a> </td>
                           <td><a href="delete_class.php?c_id=<?php echo $rowclass["c_id"] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a> </td>

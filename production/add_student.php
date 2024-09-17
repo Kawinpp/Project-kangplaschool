@@ -70,7 +70,7 @@ if (!$_SESSION["a_id"]) {
               <div class="col-md-12 col-sm-12  ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>เเก้ไขข้อมูลนักเรียน</h2>
+                    
                     <ul class="nav navbar-right panel_toolbox"></ul>                 
                     <div class="clearfix"></div>
                   </div>
@@ -213,17 +213,32 @@ if (!$_SESSION["a_id"]) {
                                         <div class="field item form-group">
                                             <label class="col-form-label col-md-3 col-sm-3  label-align">รูปภาพ<span class="required">*</span></label>
                                             <div class="col-md-6 col-sm-6">
-                                            <input type="file" name="std_upload"></div>
+                                            <input type="file" name="std_upload" class="form-control">
                                         </div>
-                                        <div class="ln_solid"></div>
+                                      </div>
+                                        <div class="field item form-group">
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">สถานะ<span class="required">*</span></label>
+                                            <div class="col-md-6 col-sm-6">
+                                            
+                                            <select name="std_status" class="form-control">
+                                              <option value="ปกติ">ปกติ</option>
+                                              <option value="พ้นสภาพ">พ้นสภาพ</option>
+                                              <option value="ลาออก">ลาออก</option>
+                                              <option value="จบการศึกษา">จบการศึกษา</option>
+                                            </select>
+                                           
+                                        </div>
+                                      </div>
+                                        
                                             <div class="form-group">
                                                 <div class="col-md-6 offset-md-3">
                                                     <button type='submit' class="btn btn-primary">บันทึกข้อมูล</button>
                                                     <button type='reset' class="btn btn-danger">ยกเลิก</button>
                                                 </div>
                                             </div>
-                                        
+                                           
                                     </form>
+                                    <div class="ln_solid"></div>
                   </div><!--/เนื้อหา-->
                 </div>
               </div>

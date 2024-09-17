@@ -1,7 +1,7 @@
 <?php
 session_start();
 require("dbconnect.php");
-if ($_SESSION['a_level'] != "a") {
+if ($_SESSION['a_level'] != "t") {
   echo "<center>หน้าสำหรับผู้ดูแลระบบ <a href=index.php>กรุณาเข้าสู่ระบบก่อน</a></center>";
   exit();
 }
@@ -13,7 +13,7 @@ if (!$_SESSION["a_id"]) {
   $result = mysqli_query($con, $sqllogin);
   $row = mysqli_fetch_assoc($result);
 
-  $std_id = $_GET["std_id"];
+  $a_id = $_GET["a_id"];
 
   //$sql2 = "SELECT * FROM  admin  WHERE a_id=$a_id";
   //$result2 = mysqli_query($con, $sql2);
@@ -26,7 +26,7 @@ if (!$_SESSION["a_id"]) {
   $sqlclassroom = "SELECT * FROM classroom"; //เลือกข้อมูลจากตาราง employee ออกมาแสดง
   $resultclassroom = mysqli_query($con, $sqlclassroom); //รันคำสั่งที่ถูกเก็บไว้ในตัวแปร $sql
   */
-  $strSQL3 = "SELECT * FROM  student inner join classroom on student.c_id=classroom.c_id inner join admin on student.a_id=admin.a_id WHERE student.std_id=$std_id";
+  $strSQL3 = "SELECT * FROM  admin  WHERE a_id=$a_id";
   $objQuery3 = mysqli_query($con, $strSQL3);
   $objResult3 = mysqli_fetch_array($objQuery3);
   
@@ -61,7 +61,7 @@ if (!$_SESSION["a_id"]) {
             
 
             <!-- sidebar menu -->
- <?php include"menu_left.php";?>
+ <?php include"menu_left_t.php";?>
             <!-- /sidebar menu -->
           </div>
         </div>
@@ -82,7 +82,7 @@ if (!$_SESSION["a_id"]) {
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>เพิ่มข้อมูลนักเรียน</h3>
+                <h3>เเก้ไขข้อมูลคุณครู</h3>
               </div>
 
              
@@ -94,106 +94,98 @@ if (!$_SESSION["a_id"]) {
               <div class="col-md-12 col-sm-12  ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>เเสดงข้อมูลนักเรียน</h2>
                     <ul class="nav navbar-right panel_toolbox">                   
                     </ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                  <br/>
-                  <form method="POST" action="save_student.php"
-                  enctype="multipart/form-data" class="form-horizontal form-label-left">
+                  <br />
+									<form method="POST" action="update_teacher.php" class="form-horizontal form-label-left"> 
+                    <input type="hidden" value="<?php echo $objResult3["a_id"]; ?>" name="a_id"> <div class="field item form-group">
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">คำนำหน้า<span class="required">*</span></label>
+                                            <div class="col-md-6 col-sm-6">
 
+                                            <select class="form-control" name="a_title">
+					<option value="นาย" <?php if($objResult3["a_title"]=="นาย") { echo"selected";}?> >นาย</option>
+          <option value="นางสาว" <?php if($objResult3["a_title"]=="นางสาว") { echo"selected";}?>>นางสาว</option>
+          <option value="นาง" <?php if($objResult3["a_title"]=="นาง") { echo"selected";}?>>นาง</option>  
+												</select>
+                      
+                      </div>
+                                        </div>
                                         <div class="field item form-group">
                                             <label class="col-form-label col-md-3 col-sm-3  label-align">ชื่อ-สกุล<span class="required">*</span></label>
                                             <div class="col-md-6 col-sm-6">
-                                            <?php echo $objResult3["std_title"] ?><?php echo $objResult3["std_name"] ?>
+                                                <input class="form-control" id="a_name" name="a_name" required="required" value="<?php echo $objResult3["a_name"]; ?>">
                                             </div>
                                         </div>
                                         <div class="field item form-group">
                                             <label class="col-form-label col-md-3 col-sm-3  label-align">ชื่อ-สกุล ภาษาอังกฤษ<span class="required">*</span></label>
                                             <div class="col-md-6 col-sm-6">
-                                            <?php echo $objResult3["std_name_en"] ?>  
+                                                <input class="form-control" data-validate-length-range="6" data-validate-words="2" id="a_name_en" name="a_name_en" required="required" value="<?php echo $objResult3["a_name_en"]; ?>">
                                             </div>
                                         </div>
                                         <div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">เพศ<span class="required">*</span></label>
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">ตำเเหน่ง<span class="required">*</span></label>
                                             <div class="col-md-6 col-sm-6">
-                                           <?php if($objResult3["std_gender"]=="w"){
-                                            echo"หญิง";
-                                           }else{
-                                            echo"ชาย";
-                                           }?>
-                      
-                      </div>
-                                        </div>
-                                        
-                                        <div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">รหัสประจำตัวประชาชน<span class="required">*</span></label>
-                                            <div class="col-md-6 col-sm-6">
-                                          <?php echo $objResult3["std_card"] ?></div>
-                                        </div>
-                                        <div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">รหัสประจำตัวนักเรียน<span class="required">*</span></label>
-                                            <div class="col-md-6 col-sm-6">
-                                           <?php echo $objResult3["std_number"] ?></div>
+                                            <input type="text" id="a_positsion" name="a_positsion" required="required" class="form-control" value="<?php echo $objResult3["a_positsion"]; ?>"></div>
                                         </div>
                                        
                                         <div class="field item form-group">        
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">ระดับชั้น<span class="required">*</span></label>
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">ครูประจำชั้น<span class="required">*</span></label>
                                             <div class="col-md-6 col-sm-6">
-                                            <?php echo $objResult3["c_name"] ?>
 
+                                            <?php
+                        $strDefault = $objResult3['c_id'];
+                        //echo"$strDefault";
+                        ?>
+
+<select class="form-control" name="c_id">
+
+                          <?php 
+                          $sqlclassroom = "SELECT * FROM classroom"; //เลือกข้อมูลจากตาราง employee ออกมาแสดง
+                          $resultclassroom = mysqli_query($con, $sqlclassroom); //รันคำสั่งที่ถูกเก็บไว้ในตัวแปร $sql
+                          while ($rowclassroom = mysqli_fetch_assoc($resultclassroom )) {
+                            if ($strDefault == $rowclassroom["c_id"]) {
+                              $sel = "selected";
+                            } else {
+                              $sel = "";
+                            }
+        ?>
+													<option value="<?php echo $rowclassroom["c_id"] ?>" <?php echo"$sel";?>><?php echo $rowclassroom["c_name"] ?>
+                        </option>
+													
+                          <?php } ?>       
+												</select>
                       </div>
-                                        </div>  
-                                        <div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">วันเดือนปีเกิด <span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 ">
-											<?php echo $objResult3["std_birthday"] ?>
-												<script>
-													function timeFunctionLong(input) {
-														setTimeout(function() {
-															input.type = 'text';
-														}, 60000);
-													}
-												</script>
-											</div>
-										</div>                                    
+                                        </div>
+                                        <div class="field item form-group">
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">เบอร์โทรศัพท์<span class="required">*</span></label>
+                                            <div class="col-md-6 col-sm-6">
+                                            <input type="text" id="a_tell" name="a_tell" required="required" class="form-control" value="<?php echo $objResult3["a_tell"]; ?>" /></div>
+                                        </div>
                                         <div class="field item form-group">
                                             <label class="col-form-label col-md-3 col-sm-3  label-align">ที่อยู่ปัจจุบัน<span class="required">*</span></label>
                                             <div class="col-md-6 col-sm-6">
-                                           <?php echo $objResult3["std_adr"]; ?>
-                                          </div>
+                                                <textarea class="form-control" required="required"id="a_adr" name='a_adr'> <?php echo $objResult3["a_adr"]; ?></textarea></div>
                                         </div>
+                                        
+                              
                                         <div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">ชื่อบิดา<span class="required">*</span></label>
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">ระดับผู้ใช้งาน<span class="required">*</span></label>
                                             <div class="col-md-6 col-sm-6">
-                                            <?php echo $objResult3["std_parents"] ?> </div>
-                                        </div>
-                                        <div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">ชื่อมารดา<span class="required">*</span></label>
-                                            <div class="col-md-6 col-sm-6">
-                                            <?php echo $objResult3["std_parents"] ?> </div>
-                                        </div>
-                                       
-                                        <div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">คุณครูประจำชั้น<span class="required">*</span></label>
-                                            <div class="col-md-6 col-sm-6">
-                                            <?php echo $objResult3["a_name"] ?>
-                                                
-												</select>
-                      
-                      </div>    
-                                        </div>
-                                        <div class="field item form-group">
-                                        <label class="col-form-label col-md-3 col-sm-3 label-align">รูปภาพ<span class="required">*</span></label>
-                                        <div class="right">
-                                        <img src="pic/<?php echo $objResult3['std_upload']; ?>" width="90px" height="100px" class="image-fluid rounded"> </div> 
-                                       </div>                                     
+                                            <select class="form-control" id="a_level"  name="a_level">
+													<option value="t">คุณครู</option>
+													<option value="a">ผู้ดูเเลระบบ</option>
+												</select></div>
                                         </div>
                                         <div class="ln_solid"></div>
-                                           
+                                            <div class="form-group">
+                                                <div class="col-md-6 offset-md-3">
+                                                    <button type='submit' class="btn btn-primary">บันทึกข้อมูล</button>
+                                                    <button type='reset' class="btn btn-danger">ยกเลิก</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </form>
                   </div>

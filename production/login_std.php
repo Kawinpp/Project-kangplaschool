@@ -31,7 +31,7 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form method="POST" action="chk.php">
+            <form method="POST" action="chk_std.php">
             <div class="text-center">
              <img src="school.png" class="rounded" alt="...">
               </div>
@@ -41,12 +41,6 @@
               </div>
               <div>
               <input type="password" class="form-control" id="password" placeholder="Password" name="password" required>
-              </div>
-              <div>
-              <select class="form-control" id="a_level"  name="a_level">
-													<option value="t">คุณครู</option>
-													<option value="a">ผู้ดูเเลระบบ</option>
-												</select>
               </div>
               <div class="mt-5">
               <button type="submit" class="btn btn-primary">เข้าสู่ระบบ</button>

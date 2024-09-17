@@ -13,9 +13,9 @@ if (!$_SESSION["a_id"]) {
   $result = mysqli_query($con, $sqllogin);
   $row = mysqli_fetch_assoc($result);
 
-  $grad_id = $_GET["grad_id"];
+  $a_id = $_GET["a_id"];
 
-  $sqlstd = "SELECT * FROM graduate WHERE grad_id=$grad_id";
+  $sqlstd = "SELECT * FROM admin WHERE a_id=$a_id";
   $resultstd = mysqli_query($con, $sqlstd);
   $rowstd = mysqli_fetch_assoc($resultstd);
 ?>
@@ -49,7 +49,7 @@ if (!$_SESSION["a_id"]) {
             
 
             <!-- sidebar menu -->
- <?php include"menu_left.php";?>
+ <?php include"menu_left_t.php";?>
             <!-- /sidebar menu -->
           </div>
         </div>
@@ -88,13 +88,13 @@ if (!$_SESSION["a_id"]) {
                   </div>
                   <div class="x_content">
                   <br />
-									<form method="POST" action="update_gradpicture.php" enctype="multipart/form-data" class="form-horizontal form-label-left">
-                                    <input type="hidden" value="<?php echo $rowstd["grad_id"]; ?>" name="grad_id">
+									<form method="POST" action="update_teapicture_t.php" enctype="multipart/form-data" class="form-horizontal form-label-left">
+                                    <input type="hidden" value="<?php echo $rowstd["a_id"]; ?>" name="a_id">
                                   
                                     <div class="field item form-group">
                                             <label class="col-form-label col-md-3 col-sm-3  label-align">รูปภาพ<span class="required">*</span></label>
                                             <div class="col-md-6 col-sm-6">
-                                            <input type="file" name="grad_upload"></div>
+                                            <input type="file" name="a_upload"></div>
                                         </div>
 										<div class="ln_solid"></div>
 										<div class="item form-group">

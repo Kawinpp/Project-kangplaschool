@@ -1,4 +1,3 @@
-
 <link href="ggfont.css" rel="stylesheet" type="text/css">
 <div class="navbar nav_title" style="border: 0;">
               <a href="show_class.php" class="text-white"><h2><i class="fa fa-graduation-cap"></i> <span>โรงเรียนบ้านก้างปลา</span></h2></a>
@@ -9,12 +8,12 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-              <img src="school.png" alt="Profile Picture" class="img-circle profile_img">
+              <img src="pic/20240722861592008.png" alt="Profile Picture" class="img-circle profile_img">
               </div>
               <div class="profile_info">
     <h2>ยินดีต้อนรับ</h2>
-    <p><?php echo $row["a_name"]; ?></p>
-    <p><a href="logout.php" class="bth btn-danger btn-sm">
+    <p><?php echo $row["std_name"]; ?></p>
+    <p><a href="logout_std.php" class="bth btn-danger btn-sm">
         <i class='bx bx-lock-open bx-flashing'></i> ออกจากระบบ
     </a></p>
 </div>
@@ -50,13 +49,13 @@
                   <li><a><i class="fa fa-bar-chart-o"></i> ดูรายงานข้อมูลนักเรียน <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="std_data.php">รายงานข้อมูลนักเรียน</a></li>
-                      
+                      <li><a href="std_stiti.php">สถิติรายงานข้อมูลนักเรียน</a></li>
                      
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-file-text"></i>รายงานจบการศึกษา<span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-file-text"></i>รายงานนักเรียนจบการศึกษา<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-            
+                      <li><a href="add_graduate.php">เพิ่มข้อมูลนักเรียนจบการศึกษา</a></li>
                       <li><a href="show_graduate.php">ดูรายงานข้อมูลนักเรียนจบการศึกษา</a></li>
                     </ul>
                   </li>

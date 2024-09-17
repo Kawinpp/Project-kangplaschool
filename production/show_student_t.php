@@ -1,8 +1,8 @@
 <?php
 session_start();
 require("dbconnect.php");
-if ($_SESSION['a_level'] != "a") {
-  echo "<center>หน้าสำหรับผู้ดูแลระบบ <a href=index.php>กรุณาเข้าสู่ระบบก่อน</a></center>";
+if ($_SESSION['a_level'] != "t") {
+  echo "<center>หน้าสำหรับคุณครู <a href=index.php>กรุณาเข้าสู่ระบบก่อน</a></center>";
   exit();
 }
 if (!$_SESSION["a_id"]) {
@@ -53,7 +53,7 @@ if (!$_SESSION["a_id"]) {
             
 
             <!-- sidebar menu -->
- <?php include"menu_left.php";?>
+ <?php include"menu_left_t.php";?>
             <!-- /sidebar menu -->
           </div>
         </div>
@@ -109,12 +109,11 @@ $order1 = 1; //ให้เริ่มนับแถวจากเลข 1
                       <thead>
                         <tr>
                           <th width="5%"><center>ลำดับ</center></th>
-                          <th width="5%"><center>รหัสนักเรียน</center></th>
-                          <th width="20%"><center>ชื่อสกุล</center></th>
+                          <th width="10%"><center>รหัสนักเรียน</center></th>
+                          <th width="15%"><center>ชื่อสกุล</center></th>
                           <th width="20%"><center>ครูประจำชั้น</center></th>
                           <th width="10%"><center>ชั้นเรียน</center></th>
                           <th width="10%"><center>รูปภาพ</center></th>
-                          <th width="10%"><center>แก้ไขรหัสผ่าน</center></th>
                           <th width="10%"><center>เเก้ไขข้อมูล</center></th>
                           <th width="10%"><center>ลบข้อมูล</center></th>
                         </tr>
@@ -124,21 +123,10 @@ $order1 = 1; //ให้เริ่มนับแถวจากเลข 1
         ?><tr>
         <td><?php echo $order1++; ?></td>
         <td> <?php echo $rowstd["std_number"];?> </td>
-        <td><a href="detail_student.php?std_id=<?php echo $rowstd["std_id"];?>"><?php echo $rowstd["std_title"];?><?php echo $rowstd["std_name"];?><br><?php echo $rowstd["std_name_en"];?></a><br>สถานะ : <b>
-          <?php 
-        if($rowstd['std_status']=='จบการศึกษา'){
-          echo "<h4><span class='badge bg-success text-white'>จบการศึกษา </span></h4>";
-        } elseif ($rowstd['std_status']=='ปกติ') {
-          echo "<h4><span class='badge bg-info text-white'>ปกติ </span></h4>";
-    } else {
-      echo "<h4><span class='badge bg-danger text-white'>จบการศึกษา </span></h4>";
-    }
-
-      ?>
-        
-      </b>
+        <td><a href="detail_student.php?std_id=<?php echo $rowstd["std_id"];?>"><?php echo $rowstd["std_title"];?><?php echo $rowstd["std_name"];?><br><?php echo $rowstd["std_name_en"];?></a><br>สถานะ : <?php echo $rowstd["std_status"];?>
 
         </td>
+        
         <td>
         <?php echo $rowstd["a_name"];?> 
          </td>
@@ -146,7 +134,6 @@ $order1 = 1; //ให้เริ่มนับแถวจากเลข 1
         <?php echo $rowstd["c_name"];?> 
          </td>
         <td><a href="edit_picture.php?std_id=<?php echo $rowstd["std_id"] ?>"><img src="pic/<?php echo $rowstd["std_upload"] ?>" width="90px" height="100px" class="image-fluid rounded"></a> </td> 
-        <td><a href="edit_studentpass.php?std_id=<?php echo $rowstd["std_id"] ?>" class="btn btn-warning"><i class="fa fa-lock"></i></a> </td>
         <td><a href="edit_student.php?std_id=<?php echo $rowstd["std_id"] ?>" class="btn btn-success"><i class="fa fa-edit"></i></a> </td>
         <td><a href="delete_student.php?std_id=<?php echo $rowstd["std_id"] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a> </td>
       </tr> 

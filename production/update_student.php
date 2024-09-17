@@ -13,12 +13,13 @@ $std_adr = $_POST["std_adr"];
 $std_parents = $_POST["std_parents"];
 $std_gender = $_POST["std_gender"];
 $std_birthday= $_POST["std_birthday"];
+$std_status = $_POST["std_status"];
 $c_id = $_POST["c_id"];
 $a_id = $_POST["a_id"];
 
 
 
-$sql = "UPDATE student SET std_title = '$std_title',std_name = '$std_name',std_name_en = '$std_name_en',std_number = '$std_number',std_card = '$std_card',std_adr = '$std_adr',std_parents = '$std_parents',std_gender = '$std_gender',std_birthday = '$std_birthday',c_id = '$c_id',a_id = '$a_id' WHERE std_id=$std_id";
+$sql = "UPDATE student SET std_title = '$std_title',std_name = '$std_name',std_name_en = '$std_name_en',std_number = '$std_number',std_card = '$std_card',std_adr = '$std_adr',std_parents = '$std_parents',std_gender = '$std_gender',std_birthday = '$std_birthday',std_status =  '$std_status',c_id = '$c_id',a_id = '$a_id' WHERE std_id=$std_id";
 
 /* echo "$sql";
 exit(); */

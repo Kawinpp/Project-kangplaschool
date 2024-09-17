@@ -17,6 +17,7 @@ $std_password = MD5($_POST["std_password"]);
 $c_id = $_POST["c_id"];
 $a_id = $_POST["a_id"];
 $std_upload = $_FILES["std_upload"]; //รับค่าไฟล์จากฟอร์ม	
+$std_status = $_POST["std_status"];
  //echo"$std_upload";
 //exit();
 //ฟังก์ชั่นวันที่
@@ -44,7 +45,7 @@ move_uploaded_file($_FILES['std_upload']['tmp_name'],$path_copy);
 // เพิ่มไฟล์เข้าไปในตาราง uploadfile
 
 //บันทึกข้อมูล
-$sql = "INSERT INTO student (std_title,std_name,std_name_en,std_number,std_card,std_adr,std_parents,std_gender,std_birthday,std_username,std_password,c_id,a_id,std_upload) VALUE('$std_title','$std_name','$std_name_en','$std_number','$std_card','$std_adr','$std_parents','$std_gender','$std_birthday','$std_username','$std_password','$c_id','$a_id','$newname')";
+$sql = "INSERT INTO student (std_title,std_name,std_name_en,std_number,std_card,std_adr,std_parents,std_gender,std_birthday,std_username,std_password,c_id,a_id,std_upload,std_status) VALUE('$std_title','$std_name','$std_name_en','$std_number','$std_card','$std_adr','$std_parents','$std_gender','$std_birthday','$std_username','$std_password','$c_id','$a_id','$newname','$std_status')";
 
 //echo"$sql";
 //exit();

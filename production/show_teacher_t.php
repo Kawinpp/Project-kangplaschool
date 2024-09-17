@@ -1,7 +1,7 @@
 <?php
 session_start();
 require("dbconnect.php");
-if ($_SESSION['a_level'] != "a") {
+if ($_SESSION['a_level'] != "t") {
   echo "<center>หน้าสำหรับผู้ดูแลระบบ <a href=index.php>กรุณาเข้าสู่ระบบก่อน</a></center>";
   exit();
 }
@@ -52,7 +52,7 @@ if (!$_SESSION["a_id"]) {
             
 
             <!-- sidebar menu -->
- <?php include"menu_left.php";?>
+<?php include"menu_left_t.php";?>
             <!-- /sidebar menu -->
           </div>
         </div>
@@ -73,7 +73,7 @@ if (!$_SESSION["a_id"]) {
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>แสดงข้อมูลนักเรียนที่จบการศึกษา</h3>
+                <h3>แสดงข้อมูลครู</h3>
               </div>
 
              
@@ -85,14 +85,14 @@ if (!$_SESSION["a_id"]) {
               <div class="col-md-12 col-sm-12  ">
                 <div class="x_panel">
                   <div class="x_title">
-                   
+                    <h2>ข้อมูลครู</h2>
                     <ul class="nav navbar-right panel_toolbox">                   
                     </ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
                   <?php
-$sql1 = "SELECT * FROM graduate"; //เลือกข้อมูลจากตาราง admin ออกมาแสดง
+$sql1 = "SELECT * FROM admin WHERE a_id='" . $_SESSION["a_id"] . "'"; //เลือกข้อมูลจากตาราง admin ออกมาแสดง
 $result1 = mysqli_query($con, $sql1); //รันคำสั่งที่ถูกเก็บไว้ในตัวแปร $sql
 
 $count1 = mysqli_num_rows($result1); //เก็บผลที่ได้จากคำสั่ง $result เก็บไว้ในตัวแปร $count
@@ -102,31 +102,29 @@ $order1 = 1; //ให้เริ่มนับแถวจากเลข 1
                       <thead>
                         <tr>
                           <th width="10%">ลำดับ</th>
-                          <th>ข้อมูลนักเรียน</th>
+                          <th>ข้อมูลคุณครู</th>
                           <th width="10%">สถานะ</th>
                           <th width="10%">รูปภาพ</th>
                           <th width="10%">แก้ไขชื่อเข้าระบบ</th>
                           <th width="10%">เเก้ไขข้อมูล</th>
-                          <th width="10%">ลบข้อมูล</th>
                         </tr>
                       </thead>
                       <tbody>
                       <?php while ($row1 = mysqli_fetch_assoc($result1)) {
-        ?><tr>
-        <td><?php echo $order1++; ?></td>
-        <td><a href="detail_graduate.php?grad_id=<?php echo $row1["grad_id"];?>"><?php echo $row1["grad_name"];?><br><?php echo $row1["grad_name_en"];?></td>
-        <td>
-          <?php 
-        if($row1["a_level"] == "t"){
-          echo "คุณครู";
-        } else{
-          echo "ผู้ดูเเละระบบ";
-        }
-               ?></td>
-         <td><a href="edit_gradpicture.php?a_id=<?php echo $row1["grad_id"] ?>"><img src="pic/<?php echo $row1["grad_upload"] ?>" width="100px" class="image-fluid rounded"></a> </td>       
-        <td><a href="edit_pass.php?grad_id=<?php echo $row1["grad_id"] ?>" class="btn btn-warning"><i class="fa fa-lock"></i></a> </td>
-        <td><a href="edit_graduate.php?grad_id=<?php echo $row1["grad_id"] ?>" class="btn btn-success"><i class="fa fa-edit"></i></a> </td>
-        <td><a href="delete_graduate.php?grad_id=<?php echo $row1["grad_id"] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a> </td>
+       ?><tr>
+       <td><?php echo $order1++; ?></td>
+       <td><a href="detail_teacher_t.php?a_id=<?php echo $row1["a_id"];?>"><?php echo $row1["a_name"];?><br><?php echo $row1["a_name_en"];?></td>
+       <td>
+         <?php 
+       if($row1["a_level"] == "t"){
+         echo "คุณครู";
+       } else{
+         echo "ผู้ดูเเละระบบ";
+       }
+              ?></td>
+         <td><a href="edit_teapicture_t.php?a_id=<?php echo $row1["a_id"] ?>"><img src="pic/<?php echo $row1["a_upload"] ?>" width="90px" height="100px" class="image-fluid rounded"></a> </td>       
+        <td><a href="edit_pass.php?a_id=<?php echo $row1["a_id"] ?>" class="btn btn-warning"><i class="fa fa-lock"></i></a> </td>
+        <td><a href="edit_teacher_t.php?a_id=<?php echo $row1["a_id"] ?>" class="btn btn-success"><i class="fa fa-edit"></i></a> </td>
       </tr> 
                           <?php } ?>                      
                       </tbody>

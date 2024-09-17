@@ -180,11 +180,6 @@ if (!$_SESSION["a_id"]) {
 													<option value="a">ผู้ดูเเลระบบ</option>
 												</select></div>
                                         </div>
-                                        <div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">รูปภาพ<span class="required">*</span></label>
-                                            <div class="col-md-6 col-sm-6">
-                                            <input type="file" name="a_upload" value="<?php echo $objResult3["a_upload"]; ?>" /></div>
-                                        </div>
                                         <div class="ln_solid"></div>
                                             <div class="form-group">
                                                 <div class="col-md-6 offset-md-3">

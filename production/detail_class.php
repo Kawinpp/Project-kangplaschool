@@ -12,9 +12,28 @@ if (!$_SESSION["a_id"]) {
   $sqllogin = "SELECT * FROM admin WHERE a_id='" . $_SESSION["a_id"] . "'";
   $result = mysqli_query($con, $sqllogin);
   $row = mysqli_fetch_assoc($result);
-
-
 ?>
+<script language="JavaScript">
+    function ClickCheckAll(vol) {
+
+      var i = 1;
+      for (i = 1; i <= document.frmMain.hdnCount.value; i++) {
+        if (vol.checked == true) {
+          eval("document.frmMain.chkupdate" + i + ".checked=true");
+        } else {
+          eval("document.frmMain.chkupdate" + i + ".checked=false");
+        }
+      }
+    }
+
+    function onUpdate() {
+      if (confirm('ต้องการอัพเดทสถานะที่จบการศึกษาใช่ไหม ?') == true) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  </script>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -112,24 +131,39 @@ $resultstd = mysqli_query($con, $sqlstd); //รันคำสั่งที่
 $count1 = mysqli_num_rows($resultstd); //เก็บผลที่ได้จากคำสั่ง $result เก็บไว้ในตัวแปร $count
 $order1 = 1; //ให้เริ่มนับแถวจากเลข 1
 ?>
+<form name="frmMain" action="update_status_std.php" method="post" OnSubmit="return onUpdate();">
+
+
+
                   <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
                       <thead>
                         <tr>
                           <th width="5%">ลำดับ</th>
+                          <th width="5%"><input name="CheckAll" type="checkbox" id="CheckAll" value="Y" onClick="ClickCheckAll(this);"></th>
                           <th width="20%">ชื่อสกุล</th>
-                          <th width="25%">คุณครูประจำชั้น</th>
+                        
+                          <th width="15%">คุณครูประจำชั้น</th>
                           <th width="10%">ชั้นเรียน</th>
                           <th width="10%">รูปภาพ</th>
-                          <th width="10%">แก้ไขชื่อเข้าระบบ</th>
+                          <th width="10%">แก้ไขรหัสผ่าน</th>
                           <th width="10%">เเก้ไขข้อมูลนักเรียน</th>
                           <th width="10%">ลบข้อมูล</th>
                         </tr>
                       </thead>
                       <tbody>
-                      <?php while ($rowstd = mysqli_fetch_assoc($resultstd)) {
-        ?><tr>
+                      <?php
+      $i = 0;
+      while ($rowstd = mysqli_fetch_array($resultstd)) {
+        $i++;
+      ?>
+      
+      <input type="hidden" name="std_id<?php echo $i; ?>" size="5" value="<?php echo $rowstd["std_id"]; ?>">
+      <tr>
         <td><?php echo $order1++; ?></td>
-        <td><a href="detail_student.php?std_id=<?php echo $rowstd["std_id"];?>"><?php echo $rowstd["std_name"];?><br><?php echo $rowstd["std_name_en"];?></td>
+        <td><input type="checkbox" name="chkupdate[]" id="chkupdate<?php echo $i; ?>" value="<?php echo $rowstd["std_id"]; ?>"></td>
+        <td><a href="detail_student.php?std_id=<?php echo $rowstd["std_id"];?>"><?php echo $rowstd["std_name"];?><br><?php echo $rowstd["std_name_en"];?>
+        <br></a><br>สถานะ : <?php echo $rowstd["std_status"];?>
+</td>
         <td>
         <?php echo $rowstd["a_name"];?> 
          </td>
@@ -141,9 +175,27 @@ $order1 = 1; //ให้เริ่มนับแถวจากเลข 1
         <td><a href="edit_student.php?std_id=<?php echo $rowstd["std_id"] ?>" class="btn btn-success"><i class="fa fa-edit"></i></a> </td>
         <td><a href="delete_student.php?std_id=<?php echo $rowstd["std_id"] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a> </td>
       </tr> 
-                          <?php } ?>                      
-                      </tbody>
-                    </table>
+      
+      
+                          <?php } ?>
+                          </tbody>
+                          </table>
+                          <table class="table mt-5">
+  <thead>
+    <tr>
+      <th scope="col"><select name="std_status" class="form-control">
+            <option value="ปกติ">ปกติ</option>
+            <option value="จบการศึกษา">จบการศึกษา</option>
+            <option value="ลาออก">ลาออก</option>
+          </select> </th>
+      <th scope="col"><input type="submit" name="btnUpdate" class="btn btn-warning" value="อัพเดทจบการศึกษา">
+      <input type="hidden" name="hdnCount" value="<?php echo $i; ?>">
+   
+    </th>
+    </tr>
+  </thead>
+                          </table>
+                 </form>
                   </div>
                 </div>
               </div>

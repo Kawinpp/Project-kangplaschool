@@ -1,21 +1,87 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<php>
 
+<head>
+  <title>ThaiCreate.Com PHP & MySQL Tutorial</title>
+</head>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
-<link href="ggfont.css" rel="stylesheet">
+<body>
+  <script language="JavaScript">
+    function ClickCheckAll(vol) {
 
+      var i = 1;
+      for (i = 1; i <= document.frmMain.hdnCount.value; i++) {
+        if (vol.checked == true) {
+          eval("document.frmMain.chkDel" + i + ".checked=true");
+        } else {
+          eval("document.frmMain.chkDel" + i + ".checked=false");
+        }
+      }
+    }
 
-  </head>
-  <body>
-    <h1>Hello, world!สวัสดี</h1>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  </body>
-</html>
+    function onUpdate() {
+      if (confirm('Do you want to update ?') == true) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  </script>
+  <form name="frmMain" action="test2.php" method="post" OnSubmit="return onUpdate();">
+    <?php
+    $con = mysqli_connect("localhost", "root", "", "kangpha") or die("เกิดข้อผิดพลาดเกิดขึ้น");
+    mysqli_set_charset($con, "utf8");
+
+    $strSQL = "SELECT * FROM student";
+    $objQuery = mysqli_query($con, $strSQL) or die("Error Query [" . $strSQL . "]");
+    ?>
+    <table width="600" border="1">
+      <tr>
+        <th width="91">
+          <div align="center">stdID </div>
+        </th>
+        <th width="98">
+          <div align="center">Name </div>
+        </th>
+        <th width="98">
+          <div align="center">Status </div>
+        </th>
+        <th width="30">
+          <div align="center">
+            <input name="CheckAll" type="checkbox" id="CheckAll" value="Y" onClick="ClickCheckAll(this);">
+          </div>
+        </th>
+      </tr>
+      <?php
+      $i = 0;
+      while ($objResult = mysqli_fetch_array($objQuery)) {
+        $i++;
+      ?>
+        <tr>
+          <td>
+            <input type="hidden" name="std_id<?php echo $i; ?>" size="5" value="<?php echo $objResult["std_id"]; ?>">
+            <div align="center"><?php echo $objResult["std_id"]; ?></div>
+          </td>
+          <td><?php echo $objResult["std_name"]; ?></td>
+          <td><?php echo $objResult["std_status"]; ?></td>
+          <td align="center"><input type="checkbox" name="chkDel[]" id="chkDel<?php echo $i; ?>" value="<?php echo $objResult["std_id"]; ?>"></td>
+        </tr>
+      <?php 
+      }
+      ?>
+      <tr>
+        <td><select name="std_status">
+            <option value="ปกติ">ปกติ</option>
+            <option value="จบการศึกษา">จบการศึกษา</option>
+            <option value="ลาออก">ลาออก</option>
+          </select></td>
+      </tr>
+    </table>
+    <?php
+    mysqli_close($con);
+    ?>
+    <input type="submit" name="btnDelete" value="อัพเดทสถานะ">
+    <input type="hidden" name="hdnCount" value="<?php echo $i; ?>">
+  </form>
+</body>
+
+</php>

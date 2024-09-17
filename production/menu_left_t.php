@@ -27,13 +27,10 @@
 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <ul class="nav side-menu">
-                  <li><a href="show_class.php"><i class="fa fa-home"></i> หน้าแรก <span></span></a>
-                    
-                  </li>
-                  <li><a><i class="fa fa-edit"></i> จัดการข้อมูลนักเรียน <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-edit"></i> ดูข้อมูลนักเรียน <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">                     
-                      <li><a href="add_student.php">เพิ่มข้อมูลนักเรียน</a></li>
-                      <li><a href="show_student.php">เรียกดูข้อมูลนักเรียน</a></li>
+                      
+                      <li><a href="show_student_t.php">เรียกดูข้อมูลนักเรียน</a></li>
                      
                     </ul>
                   </li>
@@ -50,13 +47,11 @@
                   <li><a><i class="fa fa-bar-chart-o"></i> ดูรายงานข้อมูลนักเรียน <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="std_data.php">รายงานข้อมูลนักเรียน</a></li>
-                      
                      
                     </ul>
                   </li>
                   <li><a><i class="fa fa-file-text"></i>รายงานจบการศึกษา<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-            
                       <li><a href="show_graduate.php">ดูรายงานข้อมูลนักเรียนจบการศึกษา</a></li>
                     </ul>
                   </li>
@@ -68,8 +63,8 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-user"></i>จัดการข้อมูลส่วนตัว<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="add_teacher.php">เพิ่มข้อมูลคุณครู</a></li>
-                      <li><a href="show_teacher.php">ดูข้อมูลคุณครู</a></li>
+                     
+                      <li><a href="show_teacher_t.php">ดูข้อมูลคุณครู</a></li>
                       
                       
                     </ul>

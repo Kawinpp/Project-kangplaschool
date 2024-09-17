@@ -131,13 +131,13 @@ if (!$_SESSION["a_id"]) {
                                         </div>
                                         <div class="field item form-group">
                                             <label class="col-form-label col-md-3 col-sm-3  label-align">เพศ<span class="required" 
-                                            value="<?php echo $objResult3["std_gender"] ?>" 
+                                            value="<?php echo $objResult3["std_gender"] ?>" >
                                             *</span></label>
                                             <div class="col-md-6 col-sm-6">
-
                                             <select class="form-control" name="std_gender">
-					<option value="m">ชาย</option>
-          <option value="w">หญิง</option>      
+					<option value="m" <?php if($objResult3["std_gender"]=="m") { echo"selected";}?>>ชาย</option>
+          <option value="w" <?php if($objResult3["std_gender"]=="w") { echo"selected";}?>>หญิง</option>
+                  
 												</select>
                       
                       </div>
@@ -156,13 +156,26 @@ if (!$_SESSION["a_id"]) {
                                         <div class="field item form-group">        
                                             <label class="col-form-label col-md-3 col-sm-3  label-align">ระดับชั้น<span class="required">*</span></label>
                                             <div class="col-md-6 col-sm-6">
-                          <select class="form-control" name="c_id">
+
+
+                         <?php
+                        $strDefault = $objResult3['c_id'];
+                        //echo"$strDefault";
+                        ?>
+
+<select class="form-control" name="c_id">
+
                           <?php 
-                          $sqlclassroom = "SELECT * FROM classroom"; //เลือกข้อมูลจากตาราง admin ออกมาแสดง
+                          $sqlclassroom = "SELECT * FROM classroom"; //เลือกข้อมูลจากตาราง employee ออกมาแสดง
                           $resultclassroom = mysqli_query($con, $sqlclassroom); //รันคำสั่งที่ถูกเก็บไว้ในตัวแปร $sql
                           while ($rowclassroom = mysqli_fetch_assoc($resultclassroom )) {
+                            if ($strDefault == $rowclassroom["c_id"]) {
+                              $sel = "selected";
+                            } else {
+                              $sel = "";
+                            }
         ?>
-													<option value="<?php echo $rowclassroom["c_id"] ?>"><?php echo $rowclassroom["c_name"] ?>
+													<option value="<?php echo $rowclassroom["c_id"] ?>" <?php echo"$sel";?>><?php echo $rowclassroom["c_name"] ?>
                         </option>
 													
                           <?php } ?>       
@@ -200,51 +213,51 @@ if (!$_SESSION["a_id"]) {
                                             <label class="col-form-label col-md-3 col-sm-3  label-align">ชื่อมารดา<span class="required">*</span></label>
                                             <div class="col-md-6 col-sm-6">
                                             <input type="text" id="std_parents" name="std_parents" class="form-control" required="required" value="<?php echo $objResult3["std_parents"] ?>"> </div>
-                                        </div>
-                                       
-                                        
-                                        <div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">ชื่อเข้าระบบ<span class="required">*</span></label>
-                                            <div class="col-md-6 col-sm-6">
-                                            <input type="text" id="std_username" name="std_username" class="form-control" required="required" value="<?php echo $objResult3["std_username"] ?>"></div>
-                                        </div>
-                                        <div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">รหัสผ่าน<span class="required">*</span></label>
-											<div class="col-md-6 col-sm-6">
-                      <input class="form-control" type="password" id="password1" name="std_password" required value="<?php echo $objResult3["std_parents"] ?>">
-
-												
-												<span style="position: absolute;right:15px;top:7px;" onclick="hideshow()" >
-													<i id="slash" class="fa fa-eye-slash"></i>
-													<i id="eye" class="fa fa-eye"></i>
-												</span>
-											</div>
-										</div>
+                                        </div>           
                                         <div class="field item form-group">
                                             <label class="col-form-label col-md-3 col-sm-3  label-align">คุณครูประจำชั้น<span class="required">*</span></label>
                                             <div class="col-md-6 col-sm-6">
                                        
-                                            <select class="form-control" name="a_id">
+                                            <?php
+                        $strDefault = $objResult3['a_id'];
+                        //echo"$strDefault";
+                        ?>
+
+<select class="form-control" name="a_id">
+
                           <?php 
-                          $sqladmin = "SELECT * FROM admin"; //เลือกข้อมูลจากตาราง admin ออกมาแสดง
-                          $resuladmin = mysqli_query($con, $sqladmin); //รันคำสั่งที่ถูกเก็บไว้ในตัวแปร $sql
-                          while ($rowadmin = mysqli_fetch_assoc($resuladmin )) {
+                          $sqladmin = "SELECT * FROM admin"; //เลือกข้อมูลจากตาราง employee ออกมาแสดง
+                          $resultadmin = mysqli_query($con, $sqladmin); //รันคำสั่งที่ถูกเก็บไว้ในตัวแปร $sql
+                          while ($rowadmin = mysqli_fetch_assoc($resultadmin )) {
+                            if ($strDefault == $rowadmin["a_id"]) {
+                              $sel = "selected";
+                            } else {
+                              $sel = "";
+                            }
         ?>
-													<option value="<?php echo $rowadmin["a_id"] ?>"><?php echo $rowadmin["a_name"] ?>
+													<option value="<?php echo $rowadmin["a_id"] ?>" <?php echo"$sel";?>><?php echo $rowadmin["a_name"] ?>
                         </option>
 													
                           <?php } ?>       
-												</select>                     
+												</select>
+
                       </div> 
                       </div>
                       <div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">รูปภาพ<span class="required">*</span></label>
-                                            <div class="col-md-6 col-sm-6">
-                                            <input type="file" name="std_upload" value="<?php echo $objResult3["std_upload"]; ?>" /></div>
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">สถานะ<span class="required">*</span></label>
+                                            <div class="col-md-6 col-sm-6"
+                                            value="<?php echo $objResult3["std_status"] ?>" >
+                                            </span></label>
+                                            <select class="form-control" name="std_status">
+					<option value="ปกติ" <?php if($objResult3["std_status"]=="ปกติ") { echo"selected";}?>>ปกติ</option>
+          
+          <option value="ลาออก" <?php if($objResult3["std_status"]=="ลาออก") { echo"selected";}?>>ลาออก</option>
+          <option value="จบการศึกษา" <?php if($objResult3["std_status"]=="จบการศึกษา") { echo"selected";}?>>จบการศึกษา</option>
+                  
+												</select>
+                      
+                      </div>                                       
                                         </div>
-                                        
-                                        </div>
-                                      
                                         <div class="ln_solid"></div>
                                             <div class="form-group">
                                                 <div class="col-md-6 offset-md-3">
